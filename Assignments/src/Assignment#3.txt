@@ -1,0 +1,41 @@
+Assignment#3
+
+1-       How many copies of the book titled The Lost Tribe are owned by the library branch whose name is "Sharpstown"?
+
+select noOfCopies From (tbl_book natural join tbl_book_copies natural join tbl_library_branch)
+where title= 'The Lost Tribe' and branchName= 'Sharpstown';
+
+2-	How many copies of the book titled The Lost Tribe are owned by each library branch?
+
+Select COUNT(*) 
+FROM tbl_book_copies NATURAL JOIN tbl_book NATURAL JOIN tbl_library_branch
+WHERE TITLE ='The Lost Tribe’;
+
+3-	Retrieve the names of all borrowers who do not have any books checked out .
+
+Select name from tbl_borrower
+where cardNo Not in (select cardNo from tbl_book_loans);
+
+4-
+
+select title, name,address  from (tbl_book natural join tbl_borrower natural join tbl_library_branch natural join tbl_book_loans)
+where branchName='Sharpstown' and dueDate > current_date();
+
+
+5-
+
+Select branchName, sum(noOfCopies) From tbl_library_branch join tbl_book_loans join tbl_book_copies
+where dateOut IS null
+group by branchName;
+
+
+6-
+
+select name,address, sum(noOfCopies) from tbl_borrower join tbl_book_loans join tbl_book_copies
+where dateOut IS NOT NULL
+having sum(noOfCopies) > 5;
+
+7-
+
+Select title, noOfCopies from tbl_book Natural join tbl_author natural join tbl_library_branch natural join tbl_book_copies
+where authorName='Stephen King' and branchName='Central';
