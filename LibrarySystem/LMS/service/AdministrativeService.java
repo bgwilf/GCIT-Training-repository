@@ -10,6 +10,7 @@ public class AdministrativeService {
 	public void createAuthor(Author author) throws Exception {
 		ConnectionUtil c = new ConnectionUtil();
 		Connection conn = c.createConnection();
+		
 		try {
 			if (author == null || author.getAuthorName() == null
 					|| author.getAuthorName().length() == 0
